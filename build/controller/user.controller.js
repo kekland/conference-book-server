@@ -18,7 +18,7 @@ class UserController {
         };
         let userBefore = this.collection.findOne({ username }) || this.collection.findOne({ email });
         if (userBefore) {
-            throw { message: 'User with this username or email was registered before' };
+            throw { message: "User with this username or email was registered before" };
         }
         this.collection.insert(data);
         let token = this.login(username, password);
@@ -27,7 +27,7 @@ class UserController {
     login(username, password) {
         let user = this.collection.findOne({ username });
         if (user === null) {
-            throw { message: 'Invalid username or password' };
+            throw { message: "Invalid username or password" };
         }
         let hashEquals = bcrypt_nodejs_1.default.compareSync(password, user.hash);
         if (hashEquals) {
@@ -39,7 +39,7 @@ class UserController {
             return { token };
         }
         else {
-            throw { message: 'Invalid username or password' };
+            throw { message: "Invalid username or password" };
         }
     }
     constructor(collection) {

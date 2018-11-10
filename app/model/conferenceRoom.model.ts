@@ -3,8 +3,8 @@ export interface IConferenceRoom {
   name: string;
   image: string;
   location: string;
-  opens: string;
-  closes: string;
+  opensAt: string;
+  closesAt: string;
   cost: string;
   capacity: string;
   room: string;

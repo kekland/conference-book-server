@@ -1,21 +1,22 @@
-import loki from 'lokijs'
-import { IConferenceRoom } from '../model/conferenceRoom.model'
-import { IUser } from '../model/user.model'
-import uuid from 'uuid'
+import loki from "lokijs";
+import { IConferenceRoom } from "../model/conferenceRoom.model";
+import { IUser } from "../model/user.model";
+import uuid from "uuid";
 
 export class ConferenceRoomController {
   collection: loki.Collection<IConferenceRoom>;
   constructor(collection: loki.Collection<IConferenceRoom>) {
-    this.collection = collection
+    this.collection = collection;
   }
 
   get() {
-    return this.collection.find()
+    return this.collection.find();
   }
 
   create(data: IConferenceRoom, user: IUser) {
     let insertData = {
       id: uuid.v4(),
+      image: data.image,
       location: data.location,
       cost: data.cost,
       capacity: data.capacity,
@@ -24,33 +25,32 @@ export class ConferenceRoomController {
       company: user.company,
       createdBy: user.username,
       orders: [],
-    } as IConferenceRoom
+    } as IConferenceRoom;
 
-    this.collection.insert(insertData)
+    this.collection.insert(insertData);
 
-    return insertData
+    return insertData;
   }
 
-  //TODO: Implement
+  // tODO: Implement
   update(data: IConferenceRoom, user: IUser) {
     let update = this.collection.findAndUpdate({ id: data.id }, (obj) => {
-      return data
-    })
-    return update
+      return data;
+    });
+    return update;
   }
 
   remove(id: string, user: IUser) {
-    let search = this.collection.findOne({ id })
+    let search = this.collection.findOne({ id });
     if (search === null) {
-      throw { message: 'Conference room under this ID was not found' }
+      throw { message: "Conference room under this ID was not found" };
     }
     if (search.createdBy === user.username) {
-      this.collection.findAndRemove({ id })
-      return search
+      this.collection.findAndRemove({ id });
+      return search;
+    } else {
+      throw { message: "Access denied" };
     }
-    else {
-      throw { message: 'Access denied' }
-    }
-    return search
+    return search;
   }
 }

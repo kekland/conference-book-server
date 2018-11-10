@@ -1,22 +1,23 @@
 export interface IConferenceRoom {
-  id: string,
+  id: string;
+  image: string;
   location: {
     lat: number,
     lon: number,
     address: string,
-  },
-  cost: number,
-  capacity: number,
-  room: string,
-  tags?: string[],
-  orders?: IConferenceOrder[],
-  company: string,
-  createdBy: string,
+  };
+  cost: number;
+  capacity: number;
+  room: string;
+  tags?: string[];
+  orders?: IConferenceOrder[];
+  company: string;
+  createdBy: string;
 }
 
 export interface IConferenceOrder {
-  start: Date,
-  end: Date,
-  token: string,
-  orderedBy: string,
+  start: Date;
+  end: Date;
+  token: string;
+  orderedBy: string;
 }

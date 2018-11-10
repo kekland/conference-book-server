@@ -1,0 +1,29 @@
+{
+  "name": "conference-server",
+  "version": "1.0.0",
+  "description": "Server for Conference booking application",
+  "main": "build/server.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "chalk": "^2.4.1",
+    "express": "^4.16.4",
+    "moment": "^2.22.2"
+  },
+  "devDependencies": {
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kekland/conference-book-server.git"
+  },
+  "author": "kekland <kk.erzhan@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kekland/conference-book-server/issues"
+  },
+  "homepage": "https://github.com/kekland/conference-book-server#readme"
+}

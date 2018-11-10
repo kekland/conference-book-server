@@ -2,11 +2,9 @@ export interface IConferenceRoom {
   id: string;
   name: string;
   image: string;
-  location: {
-    lat: number,
-    lon: number,
-    address: string,
-  };
+  location: string;
+  opens: string;
+  closes: string;
   cost: number;
   capacity: number;
   room: string;

@@ -19,6 +19,8 @@ export class ConferenceRoomController {
       name: data.name,
       image: data.image,
       location: data.location,
+      opens: data.opens,
+      closes: data.closes,
       cost: data.cost,
       capacity: data.capacity,
       room: data.room,

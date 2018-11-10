@@ -10,13 +10,11 @@ import { IUser } from './model/user.model';
 const onClose = require('async-exit-hook');
 
 const app: express.Application = express()
-const port = process.env.PORT || '80'
 const db = new lokijs('db.json')
-
-if(db.getCollection('conference') == null) {
+if (db.getCollection('conference') == null) {
   db.addCollection<IConferenceRoom>('conference')
 }
-if(db.getCollection('user') == null) {
+if (db.getCollection('user') == null) {
   db.addCollection<IUser>('user')
 }
 
@@ -29,8 +27,8 @@ app.use(bodyParser.json())
 app.use('/conferences', routers.conference.getRouter())
 app.use('/account', routers.user.getRouter())
 
-app.listen(port, () => {
-  log(`Listening on port ${chalk.blue(port)}`)
+app.listen(process.env.PORT, () => {
+  log(`Listening on port ${chalk.blue('PORT')}`)
 })
 
 onClose((callback: () => void) => {

@@ -1,4 +1,4 @@
-build/
 node_modules/
 .vscode/
 app/secret.ts
+build/

@@ -1,4 +1,5 @@
-interface IConferenceRoom {
+export interface IConferenceRoom {
+  id: string,
   location: {
     lat: number,
     lon: number,
@@ -6,11 +7,14 @@ interface IConferenceRoom {
   },
   cost: number,
   capacity: number,
+  room: string,
   tags?: string[],
   orders?: IConferenceOrder[],
+  company: string,
+  createdBy: string,
 }
 
-interface IConferenceOrder {
+export interface IConferenceOrder {
   start: Date,
   end: Date,
   token: string,

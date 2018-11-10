@@ -1,5 +1,6 @@
 export interface IConferenceRoom {
   id: string;
+  name: string;
   image: string;
   location: {
     lat: number,

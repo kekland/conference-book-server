@@ -16,6 +16,7 @@ export class ConferenceRoomController {
   create(data: IConferenceRoom, user: IUser) {
     let insertData = {
       id: uuid.v4(),
+      name: data.name,
       image: data.image,
       location: data.location,
       cost: data.cost,

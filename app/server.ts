@@ -7,27 +7,40 @@ import bodyParser = require('body-parser');
 import { IConferenceRoom } from './model/conferenceRoom.model'
 import lokijs from 'lokijs'
 import { IUser } from './model/user.model';
+const onClose = require('async-exit-hook');
 
-const app: express.Application = express()
-const port = process.env.PORT || '8080'
-const db = new lokijs('db.json')
+export function launchServer() {
+  const app: express.Application = express()
+  const port = process.env.PORT || '80'
+  const db = new lokijs('db.json')
 
-if(db.getCollection('conference') == null) {
-  db.addCollection<IConferenceRoom>('conference')
+  if (db.getCollection('conference') == null) {
+    db.addCollection<IConferenceRoom>('conference')
+  }
+  if (db.getCollection('user') == null) {
+    db.addCollection<IUser>('user')
+  }
+
+  const routers = {
+    conference: new ConferenceRouter(db.getCollection('conference')),
+    user: new UserRouter(db.getCollection('user'))
+  }
+
+  app.use(bodyParser.json())
+  app.use('/conferences', routers.conference.getRouter())
+  app.use('/account', routers.user.getRouter())
+
+  app.listen(port, () => {
+    log(`Listening on port ${chalk.blue(port)}`)
+  })
+
+  onClose((callback: () => void) => {
+    log('Saving database')
+    db.save(() => {
+      log('Database saved')
+      callback()
+    })
+  })
 }
-if(db.getCollection('user') == null) {
-  db.addCollection<IUser>('user')
-}
 
-const routers = {
-  conference: new ConferenceRouter(db.getCollection('conference')),
-  user: new UserRouter(db.getCollection('user'))
-}
-
-app.use(bodyParser.json())
-app.use('/conferences', routers.conference.getRouter())
-app.use('/account', routers.user.getRouter())
-
-app.listen(port, () => {
-  log(`Listening on port ${chalk.blue(port)}`)
-})
+launchServer()

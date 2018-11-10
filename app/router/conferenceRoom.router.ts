@@ -1,6 +1,8 @@
 import express from 'express'
 import { ConferenceRoomController } from '../controller/conferenceRoom.controller';
 import { IConferenceRoom } from '../model/conferenceRoom.model'
+import jwt from 'express-jwt'
+import { tokenKey } from '../secret'
 export class ConferenceRouter {
   router: express.Router;
   controller: ConferenceRoomController;
@@ -8,7 +10,7 @@ export class ConferenceRouter {
   constructor(collection: Collection<IConferenceRoom>) {
     this.router = express.Router()
     this.controller = new ConferenceRoomController(collection)
-    this.router.get('/', (req, res) => {
+    this.router.get('/', jwt({credentialsRequired: false, secret: tokenKey }), (req, res) => {
       try {
         let objects = this.controller.get()
         res.status(200).send(objects)
@@ -18,10 +20,10 @@ export class ConferenceRouter {
       }
     })
 
-    this.router.post('/', (req, res) => {
+    this.router.post('/', jwt({credentialsRequired: true, secret: tokenKey }), (req, res) => {
       const data = req.body
       try {
-        let object = this.controller.create(data, undefined)
+        let object = this.controller.create(data, req.user)
         res.status(200).send(object)
       }
       catch(e) {
@@ -33,10 +35,10 @@ export class ConferenceRouter {
 
     })
 
-    this.router.delete('/', (req, res) => {
+    this.router.delete('/', jwt({credentialsRequired: true, secret: tokenKey }), (req, res) => {
       const data = req.body
       try {
-        let object = this.controller.remove(data.id, undefined)
+        let object = this.controller.remove(data.id, req.user)
         res.status(200).send(object)
       }
       catch(e) {

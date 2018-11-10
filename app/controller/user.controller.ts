@@ -14,7 +14,6 @@ export class UserController {
       company,
       hash,
       orders: [],
-      rooms: [],
     } as IUser
 
     let userBefore = this.collection.findOne({ username }) || this.collection.findOne({ email })

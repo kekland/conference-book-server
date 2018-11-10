@@ -6,5 +6,4 @@ export interface IUser {
   company?: string,
   hash: string,
   orders: IConferenceOrder[],
-  rooms: IConferenceRoom[],
 }

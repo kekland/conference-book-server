@@ -16,6 +16,17 @@ export function log(...message: string[]) {
   })
 }
 
-export function error(message: string) {
-  console.log(`${chalk.bgRed(moment.now().toString())}: ${message}`)
+export function error(...message: string[]) {
+  const time = moment.utc(moment.now()).toLocaleString()
+  let spacing = ''
+  for (let i = 0; i < time.length + 2; i++) {
+    spacing += ' '
+  }
+  message.forEach((msg, i) => {
+    if (i === 0) {
+      console.log(`${chalk.red(time)}: ${msg}`)
+    } else {
+      console.log(`${spacing}${msg}`)
+    }
+  })
 }

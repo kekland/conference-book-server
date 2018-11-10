@@ -12,7 +12,6 @@ const bodyParser = require("body-parser");
 const lokijs_1 = __importDefault(require("lokijs"));
 const onClose = require('async-exit-hook');
 const app = express_1.default();
-const port = process.env.PORT || '80';
 const db = new lokijs_1.default('db.json');
 if (db.getCollection('conference') == null) {
     db.addCollection('conference');
@@ -27,8 +26,8 @@ const routers = {
 app.use(bodyParser.json());
 app.use('/conferences', routers.conference.getRouter());
 app.use('/account', routers.user.getRouter());
-app.listen(port, () => {
-    logger_1.log(`Listening on port ${chalk_1.default.blue(port)}`);
+app.listen(process.env.PORT, () => {
+    logger_1.log(`Listening on port ${chalk_1.default.blue('PORT')}`);
 });
 onClose((callback) => {
     logger_1.log('Saving database');

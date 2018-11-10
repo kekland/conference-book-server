@@ -5,8 +5,8 @@ export interface IConferenceRoom {
   location: string;
   opens: string;
   closes: string;
-  cost: number;
-  capacity: number;
+  cost: string;
+  capacity: string;
   room: string;
   tags?: string[];
   orders?: IConferenceOrder[];

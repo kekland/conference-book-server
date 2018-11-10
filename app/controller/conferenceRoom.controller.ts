@@ -21,23 +21,29 @@ export class ConferenceRoomController {
       capacity: data.capacity,
       room: data.room,
       tags: data.tags,
-      company: (user)? user.company : 'Company',
-      createdBy: (user)? user.username : 'Username',
+      company: (user) ? user.company : 'Company',
+      createdBy: (user) ? user.username : 'Username',
       orders: [],
     } as IConferenceRoom
-    
+
     this.collection.insert(insertData)
 
     return insertData
   }
 
   //TODO: Implement
-  update(user: IUser, data: IConferenceRoom) {
-
+  update(data: IConferenceRoom, user?: IUser) {
+    let update = this.collection.findAndUpdate({id: data.id}, (obj) => {
+      return data
+    })
+    return update
   }
 
   remove(id: string, user?: IUser) {
-    let search = this.collection.find({id: id})
+    let search = this.collection.findAndRemove({ id: id })
+    if (search === null) {
+      throw { message: 'Conference room under this ID was not found' }
+    }
     return search
   }
 }

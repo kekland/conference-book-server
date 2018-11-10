@@ -4,7 +4,9 @@
   "description": "Server for Conference booking application",
   "main": "build/server.js",
   "dependencies": {
+    "@types/bcrypt-nodejs": "0.0.30",
     "@types/uuid": "^3.4.4",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
     "express": "^4.16.4",

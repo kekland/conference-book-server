@@ -12,7 +12,7 @@ class ConferenceRoomController {
         return this.collection.find();
     }
     getForUser(username) {
-        let docs = this.collection.find({ createdBy: username });
+        let docs = this.collection.find({ createdBy: { $eq: username } });
         return docs;
     }
     create(data, user) {

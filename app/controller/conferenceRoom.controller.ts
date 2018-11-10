@@ -13,6 +13,11 @@ export class ConferenceRoomController {
     return this.collection.find();
   }
 
+  getForUser(username: string) {
+    let docs = this.collection.find({createdBy: username});
+    return docs;
+  }
+
   create(data: IConferenceRoom, user: IUser) {
     let insertData = {
       id: uuid.v4(),

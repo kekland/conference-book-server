@@ -1,14 +1,10 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const secret_1 = require("../secret");
 const uuid = require("uuid");
+const bcrypt_nodejs_1 = require("bcrypt-nodejs");
 class ConferenceOrderController {
     createOrder(from, to, cost, room, user) {
-        let token = jsonwebtoken_1.default.sign({ room, username: user.username, from, to }, secret_1.tokenKey);
+        let token = bcrypt_nodejs_1.genSaltSync();
         let order = {
             id: uuid.v4(),
             from,

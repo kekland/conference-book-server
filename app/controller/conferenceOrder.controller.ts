@@ -3,12 +3,13 @@ import { IConferenceRoom, IConferenceOrder } from "../model/conferenceRoom.model
 import jwt from 'jsonwebtoken'
 import { tokenKey } from '../secret'
 import uuid = require("uuid");
+import { genSaltSync } from "bcrypt-nodejs";
 export class ConferenceOrderController {
   userCollection: Collection<IUser>;
   roomCollection: Collection<IConferenceRoom>;
 
   createOrder(from: Date, to: Date, cost: string, room: string, user: IUser) {
-    let token = jwt.sign({room, username: user.username, from, to}, tokenKey)
+    let token = genSaltSync()
     let order = {
       id: uuid.v4(),
       from,

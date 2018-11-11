@@ -14,7 +14,7 @@ export class ConferenceRoomController {
   }
 
   getForUser(username: string) {
-    let docs = this.collection.find({ createdBy: { $eq: username } });
+    let docs = this.collection.find({ createdBy: username });
     return docs;
   }
 

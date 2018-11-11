@@ -7,6 +7,7 @@ import bodyParser = require("body-parser");
 import { IConferenceRoom } from "./model/conferenceRoom.model";
 import lokijs from "lokijs";
 import { IUser } from "./model/user.model";
+import { OrderRouter } from './router/conferenceOrder.router';
 const onClose = require("async-exit-hook");
 
 const app: express.Application = express();
@@ -20,12 +21,14 @@ if (db.getCollection("user") == null) {
 
 const routers = {
   conference: new ConferenceRouter(db.getCollection("conference")),
-  user: new UserRouter(db.getCollection("user"))
+  user: new UserRouter(db.getCollection("user")),
+  order: new OrderRouter(db.getCollection('conference'), db.getCollection('user'))
 };
 
 app.use(bodyParser.json());
 app.use("/conferences", routers.conference.getRouter());
 app.use("/account", routers.user.getRouter());
+app.use('/order', routers.order.getRouter());
 
 app.listen(process.env.PORT, () => {
   log(`Listening on port ${chalk.blue("PORT")}`);

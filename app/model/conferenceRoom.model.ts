@@ -9,14 +9,14 @@ export interface IConferenceRoom {
   capacity: string;
   room: string;
   tags?: string[];
-  orders?: IConferenceOrder[];
+  orders: IConferenceOrder[];
   company: string;
   createdBy: string;
 }
 
 export interface IConferenceOrder {
-  start: Date;
-  end: Date;
+  from: Date;
+  to: Date;
   token: string;
   orderedBy: string;
 }

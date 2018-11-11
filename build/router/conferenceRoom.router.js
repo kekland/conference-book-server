@@ -20,6 +20,7 @@ class ConferenceRouter {
                 res.status(400).send(e);
             }
         });
+        //some comment
         this.router.get("/user", express_jwt_1.default({ credentialsRequired: false, secret: secret_1.tokenKey }), (req, res) => {
             try {
                 let objects = this.controller.getForUser(req.body.username);

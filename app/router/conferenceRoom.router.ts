@@ -19,6 +19,7 @@ export class ConferenceRouter {
       }
     });
     
+    //some comment
     this.router.get("/user", jwt({ credentialsRequired: false, secret: tokenKey }), (req, res) => {
       try {
         let objects = this.controller.getForUser(req.body.username);
